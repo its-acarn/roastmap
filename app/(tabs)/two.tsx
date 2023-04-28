@@ -1,14 +1,19 @@
 import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import { View } from '../../components/Themed';
+import MapView, { Geojson } from 'react-native-maps';
+import { countries } from '../../constants/countriesGeojson'
+import Colors from '../../constants/Colors';
+import { customMapStyle } from '../../constants/customMapStyle'
+import { getColorizedGeojson } from '../../helpers/getCountryColor';
+import { useRouter } from 'expo-router';
 
 export default function TabTwoScreen() {
+  const router = useRouter()
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+      <MapView style={styles.map} provider='google' customMapStyle={customMapStyle} >
+        <Geojson geojson={getColorizedGeojson(countries)} strokeColor={Colors.primary[900]} strokeWidth={1} tappable={true} onPress={({ feature, coordinates }) => router.push({ pathname: "/modal", params: { name: feature.properties?.name } })} />
+      </MapView>
     </View>
   );
 }
@@ -19,13 +24,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  map: {
+    width: '100%',
+    height: '100%',
   },
 });

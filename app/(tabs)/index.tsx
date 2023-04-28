@@ -1,31 +1,20 @@
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import { Platform } from 'react-native';
+import { Button, Flex, Heading, Pressable, ScrollView, VStack } from 'native-base';
+import { StatusBar } from 'expo-status-bar';
+import { useRouter } from 'expo-router';
 
 export default function TabOneScreen() {
+  const router = useRouter()
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false} bg={'primary.500'}>
+      <VStack flex={1} safeArea pt={8} px={4} bg={'primary.500'} space={4}>
+        <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+        <Heading color={'secondary.500'} fontSize={'4xl'}>Hi, James</Heading>
+        <Pressable><Flex bg={'primary.800'} h={350} rounded={'50'}></Flex></Pressable>
+        <Pressable><Flex bg={'secondary.500'} h={350} rounded={'50'}></Flex></Pressable>
+        <Button size={'lg'} onPress={() => router.push("/modal")} rounded={'full'}>View Account</Button>
+      </VStack >
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
