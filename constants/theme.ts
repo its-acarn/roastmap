@@ -1,7 +1,6 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
+import { extendTheme } from "native-base";
 
-export default {
+const roastmapColors = {
   primary: {
     100: "#0a2021",
     200: "#0c2527",
@@ -34,19 +33,7 @@ export default {
     700: "#f98ca5",
     800: "#f99ab0",
     900: "#faa9bb",
-  },
-  light: {
-    text: '#000',
-    background: '#fff',
-    tint: tintColorLight,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#fff',
-    background: '#000',
-    tint: tintColorDark,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorDark,
-  },
+  }
 };
+
+export const theme = extendTheme({ colors: roastmapColors });
