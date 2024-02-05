@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { NativeBaseProvider } from "native-base";
 import { theme } from '../constants/theme';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,14 +44,16 @@ function RootLayoutNav() {
 
   return (
     <>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <NativeBaseProvider theme={theme}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: 'modal', headerShown: false }} />
-          </Stack>
-        </NativeBaseProvider>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <NativeBaseProvider theme={theme}>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="modal" options={{ presentation: 'modal', headerShown: false }} />
+            </Stack>
+          </NativeBaseProvider>
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }
